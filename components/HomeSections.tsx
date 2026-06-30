@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
-import { ArrowRight, BrainCircuit, Boxes, CircuitBoard } from "lucide-react";
+import { ArrowRight, BrainCircuit, Boxes, CircuitBoard, Globe2, Mail, MapPin } from "lucide-react";
 
 type HomeLang = "es" | "en";
 
@@ -61,13 +61,42 @@ const workflowSteps: Record<HomeLang, Array<{ label: string; body: string }>> = 
   ],
 };
 
-const footerLinks = [
+const researchLinks = [
   { label: "Dashboard", href: "/dashboard" },
-  { label: "Experiments", href: "/experiments" },
   { label: "Explorer", href: "/explorer" },
+  { label: "Live Lab", href: "/live-lab" },
   { label: "Publications", href: "/publications" },
   { label: "Roadmap", href: "/roadmap" },
 ];
+
+const footerCopy = {
+  es: {
+    research: "Investigación",
+    contact: "Contacto",
+    description:
+      "KODEX Research Labs desarrolla plataformas avanzadas de ingeniería para sistemas electromagnéticos, inteligencia artificial y descubrimiento computacional.",
+    email: "Correo",
+    website: "Sitio web",
+    location: "Ubicación",
+    locationValue: "Lima, Peru",
+    cta: "Contactar al equipo de investigación",
+    platform: "KODEX Discovery Platform v0.2 Alpha",
+    subline: "Plataforma de investigación • Software experimental • KODEX Research Labs",
+  },
+  en: {
+    research: "Research",
+    contact: "Contact",
+    description:
+      "KODEX Research Labs develops advanced engineering platforms for electromagnetic systems, artificial intelligence and computational discovery.",
+    email: "Email",
+    website: "Website",
+    location: "Location",
+    locationValue: "Lima, Peru",
+    cta: "Contact Research Team",
+    platform: "KODEX Discovery Platform v0.2 Alpha",
+    subline: "Research Platform • Experimental Software • KODEX Research Labs",
+  },
+};
 
 export function MissionSection({ lang }: { lang: HomeLang }) {
   const es = lang === "es";
@@ -151,39 +180,81 @@ export function ResearchWorkflow({ lang }: { lang: HomeLang }) {
   );
 }
 
-export function HomeFooter() {
+export function HomeFooter({ lang = "es" }: { lang?: HomeLang }) {
+  const copy = footerCopy[lang];
+
   return (
-    <footer className="relative left-1/2 mt-16 w-screen -translate-x-1/2 border-t border-white/[.08] bg-[#050608]">
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-start">
+    <footer className="relative left-1/2 mt-20 w-screen -translate-x-1/2 border-t border-white/[.08] bg-[#050505]">
+      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="grid gap-12 lg:grid-cols-[1.45fr_.75fr_1fr] lg:gap-16">
           <div>
-            <div className="text-sm font-bold uppercase tracking-[.28em] text-white/72">
+            <div className="text-sm font-bold uppercase tracking-[.28em] text-white/78">
               KODEX Research Labs
             </div>
             <p className="mt-4 max-w-2xl text-xl font-semibold leading-8 text-white">
               Engineering the Future of Electromagnetic Discovery.
             </p>
-            <p className="mt-3 text-sm text-white/50">Version 0.2 — Public Technical Preview</p>
-            <p className="mt-7 max-w-2xl text-sm leading-6 text-white/48">
-              Advancing electromagnetic engineering through mathematics, simulation and artificial intelligence.
+            <p className="mt-7 max-w-xl text-sm leading-7 text-white/48">
+              {copy.description}
             </p>
+            <p className="mt-9 text-sm text-white/42">© 2026 KODEX Research Labs</p>
           </div>
 
-          <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm lg:max-w-md lg:justify-end" aria-label="Footer navigation">
-            {footerLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-white/55 transition hover:text-cyan-100"
-              >
-                {link.label}
-              </Link>
-            ))}
+          <nav aria-label="Footer research navigation">
+            <h2 className="text-sm font-semibold uppercase tracking-[.22em] text-white/62">{copy.research}</h2>
+            <div className="mt-6 flex flex-col items-start gap-4">
+              {researchLinks.map((link) => (
+                <Link key={link.label} href={link.href} className="text-sm text-white/50 transition hover:text-cyan-100">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </nav>
+
+          <div>
+            <h2 className="text-sm font-semibold uppercase tracking-[.22em] text-white/62">{copy.contact}</h2>
+            <div className="mt-6 space-y-6">
+              <div className="flex gap-3">
+                <Mail className="mt-1 h-4 w-4 text-cyan-100/70" aria-hidden="true" />
+                <div>
+                  <div className="text-xs uppercase tracking-[.18em] text-white/32">{copy.email}</div>
+                  <Link href="mailto:dpatroni@kodex.pe" className="mt-2 block text-sm text-white/62 transition hover:text-cyan-100">
+                    dpatroni@kodex.pe
+                  </Link>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <Globe2 className="mt-1 h-4 w-4 text-cyan-100/70" aria-hidden="true" />
+                <div>
+                  <div className="text-xs uppercase tracking-[.18em] text-white/32">{copy.website}</div>
+                  <Link href="https://kodex.pe" className="mt-2 block text-sm text-white/62 transition hover:text-cyan-100">
+                    https://kodex.pe
+                  </Link>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <MapPin className="mt-1 h-4 w-4 text-cyan-100/70" aria-hidden="true" />
+                <div>
+                  <div className="text-xs uppercase tracking-[.18em] text-white/32">{copy.location}</div>
+                  <div className="mt-2 text-sm text-white/62">{copy.locationValue}</div>
+                </div>
+              </div>
+            </div>
+
+            <Link
+              href="/collaboration"
+              className="mt-8 inline-flex rounded-full border border-white/14 bg-white/[.03] px-5 py-3 text-sm font-semibold text-white/78 transition hover:border-cyan-200/40 hover:text-cyan-100"
+            >
+              {copy.cta}
+            </Link>
+          </div>
         </div>
 
-        <div className="mt-10 border-t border-white/[.06] pt-6 text-sm text-white/42">
-          © 2026 KODEX Research Labs. All rights reserved.
+        <div className="mt-16 border-t border-white/[.08] pt-8">
+          <div className="flex flex-col gap-3 text-xs leading-6 text-white/36 md:flex-row md:items-center md:justify-between">
+            <span>{copy.platform}</span>
+            <span>{copy.subline}</span>
+          </div>
         </div>
       </div>
     </footer>

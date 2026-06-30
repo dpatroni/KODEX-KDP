@@ -100,7 +100,7 @@ export default function Landing() {
           </div>
         </section>
 
-        <HomeFooter />
+        <HomeFooter lang="es" />
       </section>
     </main>
   );

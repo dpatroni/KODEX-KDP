@@ -100,7 +100,7 @@ export default function EnglishLanding() {
           </div>
         </section>
 
-        <HomeFooter />
+        <HomeFooter lang="en" />
       </section>
     </main>
   );
