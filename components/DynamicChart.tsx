@@ -2,12 +2,12 @@
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart, Area } from "recharts";
 
 const data = Array.from({ length: 73 }).map((_, i) => {
-  const theta = i * 5;
+  const sample = i * 5;
   return {
-    theta,
-    baseline: Math.sin(theta * Math.PI / 180) * 0.42,
-    candidate: Math.sin(theta * 2 * Math.PI / 180 + 0.8) * 0.63 + Math.sin(theta * Math.PI / 180) * 0.18,
-    torque: Math.sin(theta * 2 * Math.PI / 180 + 1.1) * 0.5,
+    sample,
+    baseline: Math.sin(sample * Math.PI / 180) * 0.42,
+    candidate: Math.sin(sample * 2 * Math.PI / 180 + 0.8) * 0.63 + Math.sin(sample * Math.PI / 180) * 0.18,
+    torque: Math.sin(sample * 2 * Math.PI / 180 + 1.1) * 0.5,
   };
 });
 
@@ -22,7 +22,7 @@ export function DynamicChart() {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,.08)" />
-            <XAxis dataKey="theta" stroke="rgba(255,255,255,.45)" />
+            <XAxis dataKey="sample" stroke="rgba(255,255,255,.45)" />
             <YAxis stroke="rgba(255,255,255,.45)" />
             <Tooltip contentStyle={{ background: "#0B1020", border: "1px solid rgba(255,255,255,.15)", borderRadius: 12 }} />
             <Legend />

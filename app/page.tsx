@@ -37,7 +37,7 @@ export default function Landing() {
               electromagnéticas pueden diseñarse, evaluarse, documentarse y validarse progresivamente.
             </p>
             <p className="mt-4 max-w-3xl text-base leading-7 text-white/50">
-              Un laboratorio digital para explorar arquitecturas magnéticas mediante funciones espaciales,
+              Un laboratorio digital para explorar familias de arquitecturas magnéticas con un marco propietario,
               simulación simplificada, ranking automático y un camino conservador hacia FEM, prototipo y publicación.
             </p>
             <div className="mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
@@ -81,7 +81,7 @@ export default function Landing() {
             <h2 className="text-2xl font-semibold">Qué mostramos públicamente</h2>
             <p className="mt-4 leading-7 text-white/55">
               Mostramos metodología, métricas agregadas, gráficos demostrativos y el estado de validación. No publicamos
-              aún el código completo del optimizador, genomas sensibles ni archivos CAD completos.
+              detalles de implementación, genomas sensibles ni archivos CAD completos.
             </p>
           </div>
           <div className="panel rounded-3xl p-7">

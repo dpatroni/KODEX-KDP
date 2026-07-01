@@ -4,8 +4,8 @@ export function ResearchCopy() {
       <h2 className="text-2xl font-semibold">What KODEX is building</h2>
       <div className="mt-5 grid gap-5 text-sm leading-7 text-white/60 md:grid-cols-2">
         <p>
-          KODEX develops a computational method for exploring magnetic architectures where the spatial orientation
-          of each magnetic element is treated as an independent design variable.
+          KODEX develops a proprietary research framework for exploring magnetic architecture families while keeping
+          confidential implementation details under restricted review.
         </p>
         <p>
           The current demonstrator does not claim final physical validation. It shows a reproducible path:

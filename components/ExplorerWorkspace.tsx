@@ -3,13 +3,14 @@
 import { useMemo, useState } from "react";
 import { Download, ExternalLink, Play, Send, SlidersHorizontal } from "lucide-react";
 import { candidates } from "@/lib/data";
+import { RestrictedAccessInlinePanel, restrictedResearchResources } from "@/components/RestrictedAccess";
 
 type Candidate = (typeof candidates)[number];
 
 const magnetCounts = [8, 16, 24, 32];
 const families = ["SMF-SIN", "SMF-COS", "SMF-HYBRID", "Half-Twist"];
 const harmonics = [1, 2, 3, 4];
-const betaModes = ["fixed", "theta", "double-theta"];
+const betaModes = ["standard", "progressive", "paired"];
 
 const familyColors: Record<string, string> = {
   "SMF-SIN": "#67E8F9",
@@ -30,7 +31,7 @@ export function ExplorerWorkspace() {
   const [selectedFamilies, setSelectedFamilies] = useState(families);
   const [amplitude, setAmplitude] = useState(40);
   const [selectedHarmonics, setSelectedHarmonics] = useState(harmonics);
-  const [betaMode, setBetaMode] = useState("theta");
+  const [betaMode, setBetaMode] = useState("progressive");
   const [selectedCandidateId, setSelectedCandidateId] = useState(candidates[0].id);
   const [feedback, setFeedback] = useState("Ready to inspect ranked candidates.");
 
@@ -45,7 +46,7 @@ export function ExplorerWorkspace() {
 
   function runExploration() {
     const activeFamilies = selectedFamilies.length ? selectedFamilies.join(", ") : "no families";
-    const message = `Mock exploration queued: ${magnetCount} magnets, ${activeFamilies}, H=${selectedHarmonics.join("/") || "none"}.`;
+    const message = `Mock exploration queued: ${magnetCount} magnets, ${activeFamilies}, harmonic set ${selectedHarmonics.join("/") || "none"}.`;
     setFeedback(message);
     console.log("[KDP Explorer]", message);
   }
@@ -83,6 +84,8 @@ export function ExplorerWorkspace() {
         <CandidateDetail candidate={selectedCandidate} feedback={feedback} onAction={handleCandidateAction} />
         <ArchitectureSignature candidate={selectedCandidate} />
       </div>
+
+      <RestrictedAccessInlinePanel resource={restrictedResearchResources[0]} />
     </div>
   );
 }
@@ -188,7 +191,7 @@ function SearchSpacePanel({
           </div>
         </ControlGroup>
 
-        <ControlGroup label="Beta modes">
+        <ControlGroup label="Pattern modes">
           <div className="grid gap-2 sm:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3">
             {betaModes.map((mode) => (
               <button
@@ -240,6 +243,9 @@ function CandidateTable({
         <div>
           <p className="text-sm text-cyan-100/70">Top Candidates</p>
           <h2 className="mt-2 text-2xl font-semibold">Ranked architectures</h2>
+          <p className="mt-2 max-w-2xl text-xs leading-5 text-white/42">
+            Conceptual L1 ranking for public preview. Extended candidate data remains restricted and IP-safe.
+          </p>
         </div>
         <div className="rounded-full border border-white/10 bg-white/[.04] px-3 py-1 text-xs text-white/55">
           {candidates.length} visible / 5,760 scanned
@@ -247,16 +253,25 @@ function CandidateTable({
       </div>
 
       <div className="mt-6 overflow-x-auto rounded-2xl border border-white/10">
-        <table className="w-full min-w-[760px] text-left text-sm">
+        <table className="w-full min-w-[1120px] text-left text-sm">
+          <colgroup>
+            <col className="w-[7%]" />
+            <col className="w-[36%]" />
+            <col className="w-[13%]" />
+            <col className="w-[9%]" />
+            <col className="w-[10%]" />
+            <col className="w-[12%]" />
+            <col className="w-[13%]" />
+          </colgroup>
           <thead className="bg-white/[.06] text-xs text-white/45">
             <tr>
-              <th className="px-4 py-3 font-medium">Rank</th>
-              <th className="px-4 py-3 font-medium">Candidate</th>
-              <th className="px-4 py-3 font-medium">Family</th>
-              <th className="px-4 py-3 font-medium">Score</th>
-              <th className="px-4 py-3 font-medium">Validation</th>
-              <th className="px-4 py-3 font-medium">Status</th>
-              <th className="px-4 py-3 text-right font-medium">Action</th>
+              <th className="whitespace-nowrap px-4 py-3 font-medium">Rank</th>
+              <th className="whitespace-nowrap px-4 py-3 font-medium">Candidate</th>
+              <th className="whitespace-nowrap px-4 py-3 font-medium">Family</th>
+              <th className="whitespace-nowrap px-4 py-3 font-medium">Score</th>
+              <th className="whitespace-nowrap px-4 py-3 font-medium">Validation</th>
+              <th className="whitespace-nowrap px-4 py-3 font-medium">Status</th>
+              <th className="whitespace-nowrap px-4 py-3 text-right font-medium">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -276,9 +291,9 @@ function CandidateTable({
                     <div className="font-semibold text-white">{candidate.id}</div>
                     <div className="mt-1 text-xs text-white/40">{candidate.summary}</div>
                   </td>
-                  <td className="px-4 py-4">
+                  <td className="px-4 py-4 align-middle">
                     <span
-                      className="rounded-full border px-3 py-1 text-xs"
+                      className="inline-flex whitespace-nowrap rounded-full border px-3 py-1 text-xs"
                       style={{
                         borderColor: `${familyColors[candidate.family]}55`,
                         backgroundColor: `${familyColors[candidate.family]}18`,
@@ -288,21 +303,21 @@ function CandidateTable({
                       {candidate.family}
                     </span>
                   </td>
-                  <td className="px-4 py-4 font-semibold text-cyan-50">{candidate.score.toFixed(3)}</td>
-                  <td className="px-4 py-4 text-white/60">{candidate.validation}</td>
-                  <td className="px-4 py-4">
-                    <span className={`rounded-full border px-3 py-1 text-xs ${statusClasses[candidate.status] ?? "border-white/10 bg-white/5 text-white/60"}`}>
+                  <td className="whitespace-nowrap px-4 py-4 font-semibold text-cyan-50">{candidate.score.toFixed(3)}</td>
+                  <td className="whitespace-nowrap px-4 py-4 text-white/60">{candidate.validation}</td>
+                  <td className="px-4 py-4 align-middle">
+                    <span className={`inline-flex whitespace-nowrap rounded-full border px-3 py-1 text-xs ${statusClasses[candidate.status] ?? "border-white/10 bg-white/5 text-white/60"}`}>
                       {candidate.status}
                     </span>
                   </td>
-                  <td className="px-4 py-4 text-right">
+                  <td className="whitespace-nowrap px-4 py-4 text-right align-middle">
                     <button
                       type="button"
                       onClick={(event) => {
                         event.stopPropagation();
                         onAction("Open candidate", candidate);
                       }}
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-3 py-2 text-xs font-semibold text-white/75 transition hover:border-cyan-200/50 hover:text-cyan-100"
+                      className="inline-flex min-w-[154px] items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white/15 px-3 py-2 text-xs font-semibold text-white/75 transition hover:border-cyan-200/50 hover:text-cyan-100"
                     >
                       <ExternalLink size={14} />
                       Open candidate
@@ -327,7 +342,7 @@ function CandidateDetail({
   feedback: string;
   onAction: (action: string, candidate: Candidate) => void;
 }) {
-  const nextAction = candidate.id === "CAND-001317" ? "Prepare FEM simulation package" : "Compare against baseline";
+  const nextAction = candidate.id === "CAND-001317" ? "Prepare partner validation brief" : "Compare against baseline";
   const details = [
     ["Candidate ID", candidate.id],
     ["Family", candidate.family],
@@ -335,8 +350,8 @@ function CandidateDetail({
     ["Score", candidate.score.toFixed(3)],
     ["Validation level", candidate.validation],
     ["Status", candidate.status],
-    ["Magnet count", "16"],
-    ["Geometry class", "Axial rotor array"],
+    ["Magnet count", "Restricted summary"],
+    ["Geometry class", "Confidential architecture under development"],
     ["Search method", "Spatial Magnetic Function ranking"],
     ["Next action", nextAction],
   ];
@@ -366,7 +381,7 @@ function CandidateDetail({
       <div className="mt-6 flex flex-wrap gap-3">
         <ActionButton icon={<ExternalLink size={16} />} label="Open candidate" onClick={() => onAction("Open candidate", candidate)} />
         <ActionButton icon={<Send size={16} />} label="Send to Live Lab" onClick={() => onAction("Send to Live Lab", candidate)} />
-        <ActionButton icon={<Download size={16} />} label="Export CAD spec" onClick={() => onAction("Export CAD spec", candidate)} />
+        <ActionButton icon={<Download size={16} />} label="Export safe brief" onClick={() => onAction("Export safe brief", candidate)} />
       </div>
 
       <p className="mt-5 rounded-2xl border border-cyan-200/15 bg-cyan-300/10 p-4 text-sm leading-6 text-cyan-50/75">
@@ -447,14 +462,14 @@ function ArchitectureSignature({ candidate }: { candidate: Candidate }) {
             <polyline points={waveformPoints} fill="none" stroke={accent} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" filter="url(#softGlow)" />
 
             <text x="34" y="32" fill="rgba(255,255,255,.55)" fontSize="11">Magnet array</text>
-            <text x="234" y="82" fill="rgba(255,255,255,.55)" fontSize="11">field phase</text>
+            <text x="234" y="82" fill="rgba(255,255,255,.55)" fontSize="11">field pattern</text>
             <text x="34" y="302" fill="rgba(255,255,255,.55)" fontSize="11">harmonic signature</text>
           </svg>
         </div>
 
         <div className="space-y-3">
           <SignatureMetric label="Magnet array" value="16 axial markers" />
-          <SignatureMetric label="Field phase" value={phaseLabel(candidate)} />
+          <SignatureMetric label="Field pattern" value={phaseLabel(candidate)} />
           <SignatureMetric label="Harmonic signature" value={harmonicLabel(candidate)} />
           <div className="rounded-2xl border border-white/10 bg-white/[.03] p-4">
             <div className="text-xs text-white/40">Selected candidate</div>
@@ -535,10 +550,10 @@ function buildWaveformPoints(candidate: Candidate) {
 }
 
 function phaseLabel(candidate: Candidate) {
-  if (candidate.id === "CAND-001317") return "theta + 90 deg";
+  if (candidate.id === "CAND-001317") return "restricted lead pattern";
   if (candidate.family === "SMF-COS") return "cosine offset";
   if (candidate.family === "Half-Twist") return "half-turn bias";
-  return "theta aligned";
+  return "conceptual pattern";
 }
 
 function harmonicLabel(candidate: Candidate) {

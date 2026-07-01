@@ -37,7 +37,7 @@ export default function EnglishLanding() {
               can be designed, evaluated, documented and progressively validated.
             </p>
             <p className="mt-4 max-w-3xl text-base leading-7 text-white/50">
-              A digital lab for exploring magnetic architectures through spatial functions, simplified simulation,
+              A digital lab for exploring magnetic architecture families through a proprietary framework, simplified simulation,
               automatic ranking and a conservative path toward FEM, prototype and publication.
             </p>
             <div className="mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
@@ -81,7 +81,7 @@ export default function EnglishLanding() {
             <h2 className="text-2xl font-semibold">What we show publicly</h2>
             <p className="mt-4 leading-7 text-white/55">
               We show methodology, aggregated metrics, demonstrator charts and validation status. We do not yet publish
-              the full optimizer code, sensitive genomes or complete CAD files.
+              implementation details, sensitive genomes or complete CAD files.
             </p>
           </div>
           <div className="panel rounded-3xl p-7">

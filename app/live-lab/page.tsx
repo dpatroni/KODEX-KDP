@@ -3,6 +3,11 @@ import { useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { Topbar } from "@/components/Topbar";
 import { DynamicChart } from "@/components/DynamicChart";
+import { RestrictedAccessCardGrid, restrictedResearchResources } from "@/components/RestrictedAccess";
+
+const liveLabRestrictedResources = restrictedResearchResources.filter((resource) =>
+  ["FEM Validation Roadmap", "Digital Twin Package", "Prototype Notes"].includes(resource.title),
+);
 
 export default function LiveLab() {
   const [amp, setAmp] = useState(40);
@@ -23,6 +28,11 @@ export default function LiveLab() {
         </div>
         <DynamicChart />
       </div>
+      <RestrictedAccessCardGrid
+        resources={liveLabRestrictedResources}
+        title="Live Lab restricted materials"
+        subtitle="FEM, digital twin and prototype materials are shared only as IP-safe partner summaries through restricted research access."
+      />
     </AppShell>
   );
 }

@@ -28,20 +28,20 @@ type Kpi = {
 const kpis: Kpi[] = [
   { label: "Architectures", value: "5,760", detail: "ranked spatial designs", icon: Cpu },
   { label: "Active Experiments", value: "12", detail: "running and queued", icon: FlaskConical },
-  { label: "Best Candidate", value: "CAND-001317", detail: "SMF-SIN / A=40 / H=2", icon: Target },
+  { label: "Best Candidate", value: "CAND-001317", detail: "conceptual L1 lead candidate", icon: Target },
   { label: "Validation Level", value: "L1 → FEM", detail: "next evidence gate", icon: ShieldCheck },
 ];
 
 const activityFeed: Array<{ time: string; title: string; detail: string; tone: Tone }> = [
-  { time: "15:42", title: "FEM prep unlocked", detail: "CAND-001317 assumptions are ready for review.", tone: "cyan" },
+  { time: "15:42", title: "Validation brief prepared", detail: "CAND-001317 partner summary is ready for review.", tone: "cyan" },
   { time: "14:18", title: "Explorer batch indexed", detail: "5,760 architectures normalized and ranked.", tone: "emerald" },
-  { time: "12:05", title: "Digital twin synced", detail: "M-001 geometry and validation notes aligned.", tone: "violet" },
-  { time: "09:40", title: "Protocol draft updated", detail: "Prototype fixture constraints captured.", tone: "amber" },
+  { time: "12:05", title: "Digital twin synced", detail: "M-001 conceptual notes and validation status aligned.", tone: "violet" },
+  { time: "09:40", title: "Protocol draft updated", detail: "Prototype review summary captured.", tone: "amber" },
 ];
 
 const queuedExperiments = [
-  { id: "EXP-FEM-014", name: "CAND-001317 FEM mesh", owner: "Validation", eta: "2h", progress: 72 },
-  { id: "EXP-SIM-022", name: "Harmonic sweep H=2", owner: "Explorer", eta: "4h", progress: 46 },
+  { id: "EXP-FEM-014", name: "CAND-001317 validation brief", owner: "Validation", eta: "2h", progress: 72 },
+  { id: "EXP-SIM-022", name: "Concept sweep batch", owner: "Explorer", eta: "4h", progress: 46 },
   { id: "EXP-DOC-009", name: "Evidence package review", owner: "Research", eta: "1d", progress: 28 },
 ];
 
@@ -123,9 +123,9 @@ function DigitalTwinVisual() {
       <div className="relative flex items-start justify-between gap-4">
         <div>
           <div className="badge inline-flex rounded-full px-3 py-1 text-xs">Digital Twin / Fusion View</div>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight">KODEX M-001 architecture</h2>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight">KODEX research architecture</h2>
           <p className="mt-3 max-w-xl text-sm leading-6 text-white/50">
-            Axial rotor model, 16-magnet array and FEM preparation plane for progressive validation.
+            Conceptual digital twin view for progressive validation. Detailed geometry remains under restricted review.
           </p>
         </div>
         <div className="hidden rounded-2xl border border-cyan-200/20 bg-cyan-200/10 px-4 py-3 text-right text-xs text-cyan-100/75 sm:block">
@@ -135,7 +135,7 @@ function DigitalTwinVisual() {
       </div>
 
       <div className="relative mt-6 h-[390px]">
-        <svg className="h-full w-full" viewBox="0 0 760 430" role="img" aria-label="KODEX M-001 digital twin rotor model">
+        <svg className="h-full w-full" viewBox="0 0 760 430" role="img" aria-label="KODEX conceptual digital twin visualization">
           <defs>
             <pattern id="twin-grid" width="32" height="32" patternUnits="userSpaceOnUse">
               <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(255,255,255,.06)" strokeWidth="1" />
@@ -214,13 +214,13 @@ function DigitalTwinVisual() {
 
           <g className="text-[13px] font-medium">
             <path d="M462 160 L588 116" stroke="rgba(103,232,249,.55)" />
-            <text x="596" y="118" fill="rgba(224,242,254,.86)">Rotor</text>
+            <text x="596" y="118" fill="rgba(224,242,254,.86)">Rotor concept</text>
             <path d="M502 232 L628 246" stroke="rgba(103,232,249,.55)" />
-            <text x="636" y="250" fill="rgba(224,242,254,.86)">Magnet Array</text>
+            <text x="636" y="250" fill="rgba(224,242,254,.86)">Array concept</text>
             <path d="M492 310 L612 342" stroke="rgba(167,243,208,.46)" />
-            <text x="620" y="347" fill="rgba(209,250,229,.82)">Coil Plane</text>
+            <text x="620" y="347" fill="rgba(209,250,229,.82)">Field plane</text>
             <path d="M245 310 L140 348" stroke="rgba(167,243,208,.46)" />
-            <text x="64" y="354" fill="rgba(209,250,229,.82)">FEM Prep</text>
+            <text x="64" y="354" fill="rgba(209,250,229,.82)">Validation Prep</text>
           </g>
         </svg>
       </div>
@@ -270,7 +270,7 @@ function SignalPanel() {
             <animate attributeName="x1" values="90;830;90" dur="18s" repeatCount="indefinite" />
             <animate attributeName="x2" values="90;830;90" dur="18s" repeatCount="indefinite" />
           </line>
-          <text x="60" y="322" fill="rgba(255,255,255,.38)" fontSize="12">theta sweep</text>
+          <text x="60" y="322" fill="rgba(255,255,255,.38)" fontSize="12">concept sweep</text>
           <text x="760" y="322" fill="rgba(255,255,255,.38)" fontSize="12">validation signal</text>
         </svg>
       </div>
@@ -457,13 +457,13 @@ export default function Dashboard() {
                     Command Center Online
                   </div>
                   <p className="mt-3 max-w-xl text-sm leading-6 text-white/50">
-                    Current validation posture: L1 signal accepted, FEM preparation open, prototype path pending.
+                    Current validation posture: L1 signal accepted, partner validation brief open, prototype path pending.
                   </p>
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-center text-xs text-white/45">
                   <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                    <div className="text-lg font-semibold text-white">16</div>
-                    magnets
+                    <div className="text-lg font-semibold text-white">IP</div>
+                    safe view
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
                     <div className="text-lg font-semibold text-white">0.982</div>

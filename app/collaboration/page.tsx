@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, MapPin, MessageCircle, Phone, UserRound } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
+import { PartnerAccessSection, RestrictedMaterialCatalog } from "@/components/RestrictedAccess";
 import { Topbar } from "@/components/Topbar";
 
 const collaborationNeeds = [
@@ -106,6 +107,8 @@ export default function Collaboration() {
           </div>
         </aside>
       </div>
+      <PartnerAccessSection />
+      <RestrictedMaterialCatalog />
     </AppShell>
   );
 }

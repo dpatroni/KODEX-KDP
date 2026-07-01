@@ -1,13 +1,13 @@
 export const metrics = [
   { label: "Architectures", value: "5,760", detail: "evaluated in first Explorer run" },
-  { label: "Best Candidate", value: "CAND-001317", detail: "SMF-SIN / A=40 / H=2" },
+  { label: "Best Candidate", value: "CAND-001317", detail: "conceptual L1 lead candidate" },
   { label: "Validation Level", value: "L1", detail: "simplified dipole model" },
   { label: "Research Status", value: "PoC", detail: "ready for FEM validation" },
 ];
 
 export const candidates = [
-  { rank: 1, id: "CAND-001317", family: "SMF-SIN", score: 0.982, validation: "L1", status: "Ready for FEM", summary: "A=40°, H=2, phase=45°, beta=theta+90°" },
-  { rank: 2, id: "CAND-001308", family: "SMF-SIN", score: 0.971, validation: "L1", status: "Ranked", summary: "High-amplitude functional orientation" },
+  { rank: 1, id: "CAND-001317", family: "SMF-SIN", score: 0.982, validation: "L1", status: "Ready for FEM", summary: "Leading conceptual candidate prepared for partner review" },
+  { rank: 2, id: "CAND-001308", family: "SMF-SIN", score: 0.971, validation: "L1", status: "Ranked", summary: "High-level functional architecture summary" },
   { rank: 3, id: "CAND-002941", family: "SMF-COS", score: 0.948, validation: "L1", status: "Ranked", summary: "Cosine spatial function candidate" },
   { rank: 4, id: "CAND-004522", family: "SMF-HYBRID", score: 0.934, validation: "L1", status: "Candidate", summary: "Mixed harmonic candidate" },
   { rank: 134, id: "CAND-MOBIUS-001", family: "Half-Twist", score: 0.812, validation: "L1", status: "Exploratory", summary: "Early Möbius-inspired half-twist candidate" },

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import { ArrowRight, BrainCircuit, Boxes, CircuitBoard, Globe2, Mail, MapPin } from "lucide-react";
+import { researchDisclaimerText } from "./ResearchDisclaimer";
 
 type HomeLang = "es" | "en";
 
@@ -47,14 +48,14 @@ const missionCards: Record<
 const workflowSteps: Record<HomeLang, Array<{ label: string; body: string }>> = {
   es: [
     { label: "Idea", body: "Hipótesis técnica y criterio de investigación." },
-    { label: "Diseño", body: "Arquitecturas, funciones espaciales y parámetros." },
+    { label: "Diseño", body: "Familias de arquitectura y criterios de validación." },
     { label: "Simulación", body: "Modelo computacional y ranking reproducible." },
     { label: "Validación", body: "FEM, prototipo físico y medición controlada." },
     { label: "Publicación", body: "Documentación técnica y evidencia compartible." },
   ],
   en: [
     { label: "Idea", body: "Technical hypothesis and research criteria." },
-    { label: "Design", body: "Architectures, spatial functions and parameters." },
+    { label: "Design", body: "Architecture families and validation criteria." },
     { label: "Simulation", body: "Computational model and reproducible ranking." },
     { label: "Validation", body: "FEM, physical prototype and controlled measurement." },
     { label: "Publication", body: "Technical documentation and shareable evidence." },
@@ -251,6 +252,7 @@ export function HomeFooter({ lang = "es" }: { lang?: HomeLang }) {
         </div>
 
         <div className="mt-16 border-t border-white/[.08] pt-8">
+          <p className="mb-6 max-w-5xl text-xs leading-6 text-white/38">{researchDisclaimerText}</p>
           <div className="flex flex-col gap-3 text-xs leading-6 text-white/36 md:flex-row md:items-center md:justify-between">
             <span>{copy.platform}</span>
             <span>{copy.subline}</span>
