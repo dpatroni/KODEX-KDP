@@ -22,6 +22,10 @@ npm run dev
 - `/roadmap`
 - `/collaboration`
 
+## Internal docs
+
+Internal release notes for the public IP-safe alpha are available in [docs/KDP_V1_ALPHA_RELEASE_NOTES.md](docs/KDP_V1_ALPHA_RELEASE_NOTES.md).
+
 ## Deploy
 
 Recommended:
